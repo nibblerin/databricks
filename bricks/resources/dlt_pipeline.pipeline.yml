@@ -1,0 +1,14 @@
+resources:
+  pipelines:
+    dlt_pipeline:
+      name: DLT_pipeline
+      libraries:
+        - glob:
+            include: ../src/dlt_pipeline/transformations/**
+      catalog: aaa
+      channel: CURRENT
+      continuous: false
+      photon: true
+      root_path: ../src/dlt_pipeline
+      schema: dp
+      serverless: true
