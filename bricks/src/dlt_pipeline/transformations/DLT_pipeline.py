@@ -2,6 +2,7 @@ from pyspark import pipelines as dp
 from pyspark.sql import functions as F
  
 VOLUME = "/Volumes/aaa/raw_files/data"
+SOURCE_DRIVERS = "aaa.bronze.drivers"
 CATALOG = "aaa_dp"
 BRONZE  = f"{CATALOG}.bronze"
 SILVER  = f"{CATALOG}.silver"
@@ -31,7 +32,7 @@ def bronze_drivers():
     # skipChangeCommits in true is for RESTORE protection, but it would be applicable only after pipeline runs and RESTORING happens
     return (spark.readStream
             .option("skipChangeCommits", "true")
-            .table("aaa.bronze.drivers"))
+            .table(SOURCE_DRIVERS))
 
 #Silver: Use Data Quality expectations (@dlt.expect_or_drop) to automatically filter out bad records (e.g., zero distance/fare, invalid ratings) and enrich the data with text statuses.
 
